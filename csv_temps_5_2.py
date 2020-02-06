@@ -17,20 +17,21 @@ def main():
 
 
     fig, (death, sitka) = plt.subplots(2)
+
     
     fig.subplots_adjust(hspace=0.5)
 
     # fig = plt.figure()
     death.set_title(station_name_D , fontsize =16) # automatic station name from second row of csv in "NAME" column
     
-    death.plot(dates_D, highs_D, color='red', alpha= 0.8)
+    death.plot(dates_D, highs_D, color='red', alpha= 0.8) 
     death.plot(dates_D, lows_D, color='blue', alpha = 0.8)
 
     sitka.plot(dates_S, highs_S, color='red', alpha= 0.8)
     sitka.plot(dates_S, lows_S, color='blue', alpha = 0.8)
 
     death.fill_between(dates_D, highs_D, lows_D, facecolor = "blue", alpha = 0.3) #give it an x-axis and two points in between to fill color
-    sitka.fill_between(dates_S, highs_S, lows_S, facecolor = "blue", alpha = 0.3) #give it an x-axis and two points in between to fill color
+    sitka.fill_between(dates_S, highs_S, lows_S, facecolor = "blue", alpha = 0.3) 
 
     death.set_title(station_name_D , fontsize =16) # automatic station name from second row of csv in "NAME" column
     sitka.set_title(station_name_S , fontsize =16) # automatic station name from second row of csv in "NAME" column
@@ -45,6 +46,11 @@ def main():
     sitka.tick_params(axis="both", which="major" , labelsize= 12)
 
     fig.autofmt_xdate() #makes dates fit diagonally
+
+    title_text = "Temperature comparison between" , station_name_D, "and", station_name_S   ### had to do this because suptitle() only takes 2 arguments (and that was 5)
+    title_text = str(title_text)
+    new_title_text = convert(title_text)   ###### this uses the convert function I defined below
+    fig.suptitle(new_title_text, fontsize = 15)  ### now use the variable that i just created
 
     plt.show() #dont forget this or the plot wont show
 #
@@ -86,14 +92,39 @@ def get_attributes(csv_file):
 
     return dates, highs, lows, station_name
 
+def convert(weird_list): 
+    symbols = [",", "(" , ")", "'"]
+    converted_into_list = [x for x in weird_list if x not in symbols]    ### this converts the object that we had from joining string with variables into a list of characters
+    new = ""     ##### here we make a new list that's in string form
+    for x in converted_into_list: 
+        if x not in symbols:
+            new += x      # put each letter in the string  
+    # return string
+    return new 
+
+
+
+
+
 
 #print(highs[:10]) #shows everything up till 9 (not including 10)
 
 main()
 
 
+# Submit CSV project on GitHub. Name your Github repository accordingly. Submit just the URL for the repository through this assignment.
+
+# Your CSV project should contain:
+
+# 5 python scripts (4 worked in class and 1 on your own)
+# 3 data files ( csv files)
+# README file that is an overview of your project
 # For your 5th python script file - 
 
+# Automatic Indexes: We hard coded the indexes corresponding to the TMIN and TMAX 
+# columns. Use the header row to determine the indexes for these values, so your program can work 
+# for Sitka or Death Valley. Use the station name to automatically generate an appropriate title 
+# for your graph as well.
 
 # create 2 subplot graphs in one visualization so you can see both graphs to compare side by side.
 
@@ -102,22 +133,3 @@ main()
 # enclosing figure object, in a single call.
 
 # # fig, ax = plt.subplots(2,2)  -  this will create a visualization with 2 charts on it
-
-'''fig, ax = plt.subplots(2,2)
-
-
-    fig = plt.figure()
-
-    plt.plot(dates_S, highs_S, color='red', alpha= 0.5)
-    plt.plot(dates_S, lows_S, color='blue', alpha = 0.5)
-
-    plt.fill_between(dates_S, highs_S, lows_S, facecolor = "blue", alpha = 0.3) #give it an x-axis and two points in between to fill color
-
-    plt.title(station_name_S , fontsize =16) # automatic station name from second row of csv in "NAME" column
-    plt.xlabel("", fontsize=8)
-    plt.ylabel("Temperature in (F)",fontsize = 12)
-    plt.tick_params(axis="both", which="major" , labelsize= 12)
-
-    fig.autofmt_xdate() #makes dates fit diagonally
-
-    plt.show() #dont forget this or the plot wont show '''
