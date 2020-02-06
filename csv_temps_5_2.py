@@ -51,7 +51,8 @@ def main():
     title_text = str(title_text)
     new_title_text = convert(title_text)   ###### this uses the convert function I defined below
     fig.suptitle(new_title_text, fontsize = 15)  ### now use the variable that i just created
-
+    ############################################## this could have been solved a lot better with: fig.suptitle=("Temperature comparison between
+    ##################### fig.suptitle=("Temperature comparison between {station_name1} and {station_name2}.")
     plt.show() #dont forget this or the plot wont show
 #
 #
